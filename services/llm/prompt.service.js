@@ -66,11 +66,12 @@ export function buildPrompt(analysis){
         CONTEST HISTORY
         ==========================
 
-        The following is the user's contest history in chronological order.
+        The following are the user's most recent Codeforces contests in chronological order.
+        Use these contests to identify recent rating trends and performance patterns.
         The initial Codeforces rating before the first recorded contest was 0.
     `;
 
-    for (const contest of analysis.contestHistory) {
+    for (const contest of analysis.contestHistory.slice(-50)) {
         prompt += `
             Contest: ${contest.contestName}
             Rank: ${contest.rank}
