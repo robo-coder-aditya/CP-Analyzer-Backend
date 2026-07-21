@@ -1,4 +1,5 @@
 import {analyseUser} from "../services/analysis.service.js";
+import { getUserInfo } from "../services/codeforces.service.js";
 
 import { generateInsights } from "../services/llm/llm.service.js";
 
@@ -8,12 +9,17 @@ export async function analyzeUser(req, res){
 
         const analysis = await analyseUser(handle);
         const insights = await generateInsights(analysis);
+        const profile = await getUserInfo(handle);
         const cleanedInsights = insights
             .replace(/```json/g, "")
             .replace(/```/g, "")
             .trim();
 
-        res.json(JSON.parse(cleanedInsights));
+        const parsedInsights = JSON.parse(cleanedInsights);
+        res.json({
+            profile,
+            insights: parsedInsights
+        });
     }
     catch(err){
         console.error(err);
