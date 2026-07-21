@@ -7,7 +7,7 @@ app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
-    res.send("CP Analyzer Backend Running 🚀");
+    res.send("CP Analyzer Backend Running");
 });
 
 export default app;
