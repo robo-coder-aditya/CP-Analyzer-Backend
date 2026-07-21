@@ -144,7 +144,20 @@ export function buildPrompt(analysis){
 
 
         Maintain a balanced and constructive tone. Highlight both strengths and areas for improvement.
-        Format the response using clear Markdown headings. Use bullet points only where they improve readability, and keep the report concise and well-structured.
+        Return the response as valid JSON only. The response must be valid JSON that can be parsed directly using JSON.parse().
+        Do not include Markdown, code fences, explanations or additional text outside the JSON.
+        Use the following structure exactly:
+        {
+            "performance": "...",
+            "behaviour": "...",
+            "learning": "...",
+            "contestAnalysis": "...",
+            "nextSteps": [
+                "...",
+                "...",
+                "..."
+            ]
+        }
     `;
 
     return prompt;
