@@ -2,7 +2,7 @@ import axios from "axios"
 
 export async function getUserInfo(handle){
     try{
-        const res = await axios.get(`https://codeforces.com/api/user.info?handles=${handle}`);
+        const res = await axios.get(`https://codeforces.com/api/user.info?handles=${handle}&lang=en`);
 
         const user = res.data.result[0];
         return res.data.result[0];
@@ -20,7 +20,7 @@ export async function getUserInfo(handle){
 
 export async function getUserSubmissions(handle){
     try{
-        const res = await axios.get(`https://codeforces.com/api/user.status?handle=${handle}`)
+        const res = await axios.get(`https://codeforces.com/api/user.status?handle=${handle}&lang=en`)
 
         const submissions = res.data.result;
 
@@ -40,7 +40,7 @@ export async function getUserSubmissions(handle){
 
 export async function getRatingHistory(handle){
     try{
-        const res = await axios.get(`https://codeforces.com/api/user.rating?handle=${handle}`)
+        const res = await axios.get(`https://codeforces.com/api/user.rating?handle=${handle}&lang=en`)
 
         const history = res.data.result;
 
