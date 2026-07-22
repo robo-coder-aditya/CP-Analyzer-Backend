@@ -18,6 +18,7 @@ export async function analyzeUser(req, res){
         const parsedInsights = JSON.parse(cleanedInsights);
         res.json({
             profile,
+            stats: analysis,
             insights: parsedInsights
         });
     }
