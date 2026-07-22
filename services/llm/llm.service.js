@@ -9,19 +9,28 @@ const groq = new Groq({
 })
 
 export async function generateInsights(analysis) {
-    const response = await groq.chat.completions.create({
-        model: "llama-3.3-70b-versatile",
-        messages: [
-            {
-                role: "system",
-                content: "You are an expert competitive programming coach"
-            }, 
-            {
-                role: "user",
-                content: buildPrompt(analysis)
-            }
-        ]
-    })
+    try{
+        const response = await groq.chat.completions.create({
+            model: "llama-3.3-70b-versatile",
+            messages: [
+                {
+                    role: "system",
+                    content: "You are an expert competitive programming coach"
+                }, 
+                {
+                    role: "user",
+                    content: buildPrompt(analysis)
+                }
+            ]
+        })
 
-    return response.choices[0].message.content;
+        return response.choices[0].message.content;
+    }
+    catch(err){
+        if (err.status === 429 || err.response?.status === 429) {
+            throw new Error("GROQ_RATE_LIMIT");
+        }
+
+        throw new Error("LLM_ERROR");
+    }
 }

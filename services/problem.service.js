@@ -8,7 +8,7 @@ export async function getAllProblems(){
         return problems;
     }
     catch(err){
-        throw err;
+        throw new Error("DATABASE_ERROR");
         
     }
 }
