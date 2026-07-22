@@ -9,12 +9,13 @@ export async function getUserInfo(handle){
 
     }
     catch (err) {
-        if (err.response?.data?.comment === "handles: User with handle not found") {
+        if (err.response?.data?.comment?.includes("User with handle not found")) {
             throw new Error("INVALID_HANDLE");
         }
 
         throw new Error("CODEFORCES_ERROR");
     }
+    
 }
 
 export async function getUserSubmissions(handle){
@@ -26,12 +27,15 @@ export async function getUserSubmissions(handle){
         return res.data.result;
     }
     catch (err) {
-        if (err.response?.data?.comment === "handles: User with handle not found") {
+
+        const comment = err.response?.data?.comment ?? "";
+
+        if (comment.startsWith("handle:") && comment.includes("not found")){
             throw new Error("INVALID_HANDLE");
         }
-
         throw new Error("CODEFORCES_ERROR");
     }
+    
 }
 
 export async function getRatingHistory(handle){
@@ -43,7 +47,7 @@ export async function getRatingHistory(handle){
         return res.data.result;
     }
     catch (err) {
-        if (err.response?.data?.comment === "handles: User with handle not found") {
+        if (err.response?.data?.comment?.includes("User with handle not found")) {
             throw new Error("INVALID_HANDLE");
         }
 
